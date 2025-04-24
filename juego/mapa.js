@@ -1,18 +1,63 @@
 class Mapa{
-	constructor(_path){
-		var file = JSON.parse(_path);
+	constructor(data){
+		var text = "";
+		//console.log(data);
+		data.forEach(line => {
+			text += line;
+			text += "\n";
+		});
 
-		this.plataformas = [file.plataformas.length];
-		for (var i=0; i<plataformas.length; i++){
-			plataformas[i] = new Plataforma(createVector(file.plataformas[i].pos.x,file.plataformas[i].y), createVector(file.plataformas[i].tam.x,file.plataformas[i].y));
+		var file = JSON.parse(text);
+
+		this.pisos = new Group();
+		this.plataformas = [];
+		for (var i=0; i<file.plataformas.length; i++){
+			var _plat = file.plataformas[i];
+			this.plataformas[i] = new Plataforma(createVector(_plat.pos.x,_plat.pos.y),createVector(_plat.tam.x,_plat.tam.y));
+			this.pisos.push(this.plataformas[i].img);
 		}
 
-		this.palitos = [file.palitos.length];
-		for (var i=0; i<palitos.length; i++){
-			palitos[i] = new Palito(createVector(file.palitos[i].pos.x,file.palitos[i].y), createVector(file.palitos[i].tam.x,file.palitos[i].y));
+		this.palitos = [];
+		for (var i=0; i<file.palitos.length; i++){
+			var _pal = file.palitos[i];
+			this.palitos[i] = new Palito(createVector(_pal.pos.x,_pal.pos.y));
 		}
 
-		this.pajarito = new Pajarito(file.pajarito.pos);
-		this.casita = new Casita(file.casita.pos, file.casita.objetivo);
+		this.casita = new Casita(createVector(file.casita.pos.x,file.casita.pos.y), file.casita.objetivo);
+		this.hornero = new Hornero(createVector(file.hornero.pos.x,file.hornero.pos.y));
+		this.piso = new Sprite(400,600,800,10,STA);
+		this.pisos.push(this.piso);
+	};
+
+	update(){
+		this.plataformas.forEach(plataforma =>{
+			plataforma.update();
+		});
+		this.palitos.forEach(palito =>{
+			palito.update();
+		});
+		this.casita.update();
+		this.hornero.update(this.pisos);
+	};
+
+	draw(){
+		this.plataformas.forEach(plataforma =>{
+			plataforma.draw();
+		});
+		this.palitos.forEach(palito =>{
+			palito.draw();
+		});
+		this.casita.draw();
+		this.hornero.draw();
+	};
+
+	keyPressed(_key){
+		this.hornero.keyPressed(_key);
+	};
+
+	keyReleased(_key){
+		this.hornero.keyReleased(_key);
 	}
+
 }
+
