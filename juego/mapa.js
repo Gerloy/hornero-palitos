@@ -9,6 +9,7 @@ class Mapa{
 
 		var file = JSON.parse(text);
 
+		//Grupo de objetos fisicos para ver las colisiones
 		this.pisos = new Group();
 		this.plataformas = [];
 		for (var i=0; i<file.plataformas.length; i++){
@@ -17,16 +18,24 @@ class Mapa{
 			this.pisos.push(this.plataformas[i].img);
 		}
 
+		this.agarrables = new Group();
 		this.palitos = [];
 		for (var i=0; i<file.palitos.length; i++){
 			var _pal = file.palitos[i];
 			this.palitos[i] = new Palito(createVector(_pal.pos.x,_pal.pos.y));
+			this.agarrables.push(this.palitos[i].img);
 		}
-
+		
+		this.meta = new Group();
 		this.casita = new Casita(createVector(file.casita.pos.x,file.casita.pos.y), file.casita.objetivo);
+		this.meta.push(this.casita.img);
+		this.pj = new Group();
 		this.hornero = new Hornero(createVector(file.hornero.pos.x,file.hornero.pos.y));
+		this.pj.push(this.hornero.img);
 		this.piso = new Sprite(400,600,800,10,STA);
 		this.pisos.push(this.piso);
+
+		this.sig = file.sig;
 	};
 
 	update(){
@@ -34,10 +43,10 @@ class Mapa{
 			plataforma.update();
 		});
 		this.palitos.forEach(palito =>{
-			palito.update();
+			palito.update(this.pj);
 		});
-		this.casita.update();
-		this.hornero.update(this.pisos);
+		this.casita.update(this.hornero);
+		this.hornero.update(this.pisos,this.agarrables);
 	};
 
 	draw(){

@@ -1,13 +1,22 @@
 class Casita{
 	constructor(_pos,_objetivo){
-		this.pos = _pos;
 		this.objetivo = _objetivo;
-		this.tam = createVector(40,40);
-		this.tag = "Casita";
+		this.img = new Sprite(_pos.x,_pos.y,50,50, 'n');
 	}
 
-	draw(){
-		rect(this.pos.x,this.pos.y,this.tam.x,this.tam.y);
+	draw(){}
+	update(hornero){
+		if (this.img.overlapping(hornero.img)){
+			if (hornero.palitos >= this.objetivo){
+				sigMapa();
+				console.log("encima");
+			}
+		}
 	}
-	update(){}
+
+	//checkearPuntos(_pj){
+	//	if(_pj.__getParent().palitos == this.objetivo){
+	//		sigMapa();	
+	//	}
+	//}
 }
