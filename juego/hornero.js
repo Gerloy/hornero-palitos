@@ -4,7 +4,6 @@ class Hornero{
 		this.tam = createVector(30,30);
 		this.pos = _pos;
 		this.palitos = 0;
-		//this.tag = "Hornero";
 
 		//Fisicas
 		this.img = new Sprite(_pos.x,_pos.y,30,30);
@@ -26,9 +25,9 @@ class Hornero{
 		this.mov_de = false;
 		this.mov_iz = false;
 		this.saltando = false;
-		this.vel = 10;
+		this.vel = 7;
 		this.vel_actual = 0;
-		this.fsalto = 40;
+		this.fsalto = 50;
 	}
 
 	update(_pisos,_palitos){
@@ -36,7 +35,7 @@ class Hornero{
 		this.img.vel.x = this.vel_actual;
 		if (this.groundSensor.overlapping(_pisos)){this.saltando = false;}else{this.saltando = true;}
 		if (this.img.overlapping(_palitos)){
-			this.palitos++; 
+			this.palitos++;
 			console.log(this.palitos);
 
 		}
@@ -55,7 +54,6 @@ class Hornero{
 
 		if(keyCode == this.key_salto && !this.saltando){
 			this.img.vel.y = this.fsalto;
-			//this.saltando = true;
 		}
 	}
 
@@ -69,7 +67,6 @@ class Hornero{
 	}
 
 	mover(){
-		//this.vel_actual = 0;
 		var velx = 0;
 		if(this.mov_de){
 			velx += this.vel;

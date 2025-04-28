@@ -16,6 +16,7 @@ function loadMapa(_path){
 }
 
 function cambiarMapa(data){
+	if(mapa){mapa.limpiar();}
 	mapa = new Mapa(data);
 	world.gravity.y = 20;
 }

@@ -33,10 +33,30 @@ class Mapa{
 		this.hornero = new Hornero(createVector(file.hornero.pos.x,file.hornero.pos.y));
 		this.pj.push(this.hornero.img);
 		this.piso = new Sprite(400,600,800,10,STA);
+		this.piz = new Sprite(-10,300,20,700,STA);
+		this.pder = new Sprite(810,300,20,700,STA);
 		this.pisos.push(this.piso);
 
 		this.sig = file.sig;
 	};
+
+	limpiar(){
+		this.plataformas.forEach(plataforma =>{
+			plataforma.img.remove();
+		});
+		this.palitos.forEach(palito =>{
+			palito.img.remove(this.pj);
+		});
+		this.casita.img.remove();
+		this.hornero.img.remove();
+		this.piso.remove();
+		this.piz.remove();
+		this.pder.remove();
+		this.pisos.remove();
+		this.pj.remove();
+		this.agarrables.remove();
+		this.meta.remove();
+	}
 
 	update(){
 		this.plataformas.forEach(plataforma =>{
