@@ -1,5 +1,12 @@
 class Hornero{
-	constructor(_pos){
+	constructor(_pos, _imgs){
+		//Imagen para el pj
+		var sprite;
+		_imgs.forEach(img =>{
+			if(img.tag == "hornero"){
+				sprite = img.path;
+			}
+		});
 		//Cosas basicas
 		this.tam = createVector(30,30);
 		this.pos = _pos;
@@ -7,6 +14,8 @@ class Hornero{
 
 		//Fisicas
 		this.img = new Sprite(_pos.x,_pos.y,30,30);
+		this.img.image = sprite;
+		this.img.image.scale = 0.25;
 		this.img.sleeping = false;
 		this.img.rotationLock = true;
 		this.img.friction = 0;

@@ -1,14 +1,28 @@
 var mapa;
+var estado;
+const Estado = {
+	CARGANDO : 1,
+	JUGANDO : 2
+}
 
 function setup() {
 	createCanvas(800,600);
 	loadMapa("res/maps/map_0.json");
+	estado = Estado.CARGANDO;
 }
 
 function draw() {
 	background('#00CCCC');
-	if(mapa){mapa.update();}
-	if(mapa){mapa.draw();}
+	switch (estado){
+		case Estado.JUGANDO:
+			break;
+	}
+	if(Estado.JUGANDO){
+		if(mapa){mapa.update();}
+		if(mapa){mapa.draw();}
+	}else{
+		
+	}
 }
 
 function loadMapa(_path){

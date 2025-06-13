@@ -9,6 +9,14 @@ class Mapa{
 
 		var file = JSON.parse(text);
 
+		//Cargamos los sprites que se van a usar en el nivel
+		this.imagenes = [];
+		for (var i=0; i<file.sprites.length; i++){
+			var img = file.sprites[i];
+			this.imagenes[i] = new Imagen(img.tag, img.path);
+			console.log("Cargo imagen");
+		}
+
 		//Grupo de objetos fisicos para ver las colisiones
 		this.pisos = new Group();
 		this.plataformas = [];
@@ -30,7 +38,7 @@ class Mapa{
 		this.casita = new Casita(createVector(file.casita.pos.x,file.casita.pos.y), file.casita.objetivo);
 		this.meta.push(this.casita.img);
 		this.pj = new Group();
-		this.hornero = new Hornero(createVector(file.hornero.pos.x,file.hornero.pos.y));
+		this.hornero = new Hornero(createVector(file.hornero.pos.x,file.hornero.pos.y), this.imagenes);
 		this.pj.push(this.hornero.img);
 		this.piso = new Sprite(400,600,800,10,STA);
 		this.piz = new Sprite(-10,300,20,700,STA);
