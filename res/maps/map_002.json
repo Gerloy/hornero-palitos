@@ -1,4 +1,10 @@
 {
+    "sprites":[
+		{
+			"tag": "hornero",
+			"path": "res/sprites/hornero.png"
+		}
+	],
     "plataformas":[
         {
             "pos":{
